@@ -15,23 +15,36 @@ namespace CustomList
         private Node Head;
         private Node Last;
 
+        //just to "CList<int> ints = [1, 2, 3, 42, -1];" syntaxis, lol
+        public void Add(T item)
+        {
+            AddTail(item);
+        }
+
         public void AddTail(T item)
         {
-            CreateHeadIfNull();
+            if(Head == null)
+            {
+                InitHead(item);
+                return;
+            }
             Node next = new Node();
             next.Value = item;
             Last.Next = next;
             Last = next;
         }
 
-        public void AddHead()
+        public void AddHead(T item)
         {
-            CreateHeadIfNull();
             if(Head == null)
             {
-                Head = new Node();
-                Last = Head;
+                InitHead(item);
+                return;
             }
+            Node newHead = new Node();
+            newHead.Value = item;
+            newHead.Next = Head;
+            Head = newHead;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -44,14 +57,11 @@ namespace CustomList
             return GetEnumerator();
         }
 
-        private void CreateHeadIfNull()
+        private void InitHead(T item)
         {
-            if(Head == null)
-            {
-                Head = new Node();
-                Last = Head;
-            }
+            Head = new Node();
+            Head.Value = item;
+            Last = Head;
         }
-
     }
 }

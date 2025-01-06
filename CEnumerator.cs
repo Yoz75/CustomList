@@ -11,7 +11,7 @@ namespace CustomList
 
         public CEnumerator(CList<T>.Node startNode)
         {
-            FirstNode = CurrentNode = startNode;
+            FirstNode = startNode;
         }
         public T Current => CurrentNode.Value;
 
@@ -24,6 +24,11 @@ namespace CustomList
 
         public bool MoveNext()
         {
+            if(CurrentNode == null)
+            {
+                CurrentNode = FirstNode;
+                return true;
+            }
             if(CurrentNode.Next == null)
             {
                 return false;
